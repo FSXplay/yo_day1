@@ -25,16 +25,16 @@ public class CourseController {
     @GetMapping("{id}")
     public ResponseEntity<ApiResponse<Course>> getCourseById(@PathParam("id") Long id) {
 
-//        return courseService.findById(id).map(value ->
-//                ResponseEntity.ok(ApiResponse.success(value)))
-//                .orElseGet(() -> ResponseEntity.notFound().build());
+        return courseService.findById(id).map(value ->
+                ResponseEntity.ok(ApiResponse.success(value)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
 
-        Optional<Course> course = courseService.findById(id);
-        if (course.isPresent()) {
-            return ResponseEntity.ok(ApiResponse.success(course.get()));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+//        Optional<Course> course = courseService.findById(id);
+//        if (course.isPresent()) {
+//            return ResponseEntity.ok(ApiResponse.success(course.get()));
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
     }
 
     @PostMapping
