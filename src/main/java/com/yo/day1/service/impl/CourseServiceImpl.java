@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CurseServiceImpl implements CourseService {
+public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
 
     public List<Course> findAll() {
