@@ -17,7 +17,7 @@ public class CourseController {
     private final CourseService courseService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Course>>> getCourse() {
+    public ResponseEntity<ApiResponse<List<Course>>> getCourses() {
         return ResponseEntity.ok(ApiResponse.success(courseService.findAll()));
     }
 
