@@ -23,4 +23,8 @@ public class TeacherServiceImpl implements TeacherService {
     public Optional<Teacher> findById(Long id) {
         return teacherRepository.findById(id);
     }
+
+    public Teacher save(Teacher teacher) {
+        return teacherRepository.save(teacher);
+    }
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,5 +32,10 @@ public class TeacherController {
         return teacherService.findById(id).map(value -> 
             ResponseEntity.ok(ApiResponse.success(value)))
             .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<Teacher>> create(@RequestBody Teacher teacher) {
+        return ResponseEntity.ok(ApiResponse.success(teacherService.save(teacher)));
     }
 }
