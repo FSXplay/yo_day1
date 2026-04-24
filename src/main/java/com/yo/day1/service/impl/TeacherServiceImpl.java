@@ -27,4 +27,18 @@ public class TeacherServiceImpl implements TeacherService {
     public Teacher save(Teacher teacher) {
         return teacherRepository.save(teacher);
     }
+
+    public Teacher updateById(Long id, Teacher updatedTeacher) {
+        return teacherRepository.findById(id)
+                .map(existingTeacher -> {
+                    existingTeacher.setTeacherCode(updatedTeacher.getTeacherCode());
+                    existingTeacher.setFullName(updatedTeacher.getFullName());
+                    existingTeacher.setEmail(updatedTeacher.getEmail());
+                    existingTeacher.setPhone(updatedTeacher.getPhone());
+                    existingTeacher.setTeacherRole(updatedTeacher.getTeacherRole());
+                    existingTeacher.setIsActive(updatedTeacher.getIsActive());
+                    return teacherRepository.save(existingTeacher);  
+                })
+                .orElseThrow(() -> new RuntimeException("Teacher not found"));
+    }
 }

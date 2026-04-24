@@ -10,4 +10,6 @@ public interface TeacherService {
     Optional<Teacher> findById(Long id);
 
     Teacher save(Teacher teacher);
+
+    Teacher updateById(Long id, Teacher updatedTeacher);
 }
