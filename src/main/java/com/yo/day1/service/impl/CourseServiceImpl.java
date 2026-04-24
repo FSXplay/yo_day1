@@ -39,4 +39,12 @@ public class CourseServiceImpl implements CourseService {
                 })
                 .orElseThrow(() -> new RuntimeException("Course not found"));
     }
+
+    public Optional<Course> deleteById(Long id) {
+        // TODO: Need to discuss on whether to soft or hard delete
+        return courseRepository.findById(id).map(course -> {
+            course.setIsActive((byte) 0);
+            return courseRepository.save(course);
+        });
+    }
 }

@@ -3,13 +3,12 @@ package com.yo.day1.controllers;
 import com.yo.day1.common.ApiResponse;
 import com.yo.day1.domain.entity.Course;
 import com.yo.day1.service.CourseService;
-import jakarta.websocket.server.PathParam;
+// import jakarta.websocket.server.PathParam; // TODO: @PathParam vs @PathVariable?
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/courses")
@@ -23,7 +22,7 @@ public class CourseController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ApiResponse<Course>> getCourseById(@PathParam("id") Long id) {
+    public ResponseEntity<ApiResponse<Course>> getCourseById(@PathVariable("id") Long id) {
 
         return courseService.findById(id).map(value ->
                 ResponseEntity.ok(ApiResponse.success(value)))
@@ -35,7 +34,7 @@ public class CourseController {
 //        } else {
 //            return ResponseEntity.notFound().build();
 //        }
-    }
+    }   
 
     @PostMapping
     public ResponseEntity<ApiResponse<Course>> create(@RequestBody Course course) {
@@ -47,5 +46,12 @@ public class CourseController {
             @PathVariable("id") Long id, 
             @RequestBody Course updatedCourse) {
         return ResponseEntity.ok(ApiResponse.success(courseService.updateById(id, updatedCourse)));
+    }
+
+    @DeleteMapping({"{id}"})
+    public ResponseEntity<ApiResponse<Course>> delete(@PathVariable("id") Long id) {
+        return courseService.deleteById(id).map(value ->
+                ResponseEntity.ok(ApiResponse.success(value)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
