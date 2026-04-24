@@ -22,7 +22,7 @@ public class Teacher {
     private String teacherCode;
     
     @Column(columnDefinition = "varchar(100)")
-    private String fullname;
+    private String fullName;
 
     @Column(columnDefinition = "varchar(100)")
     private String email;

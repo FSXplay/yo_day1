@@ -1,0 +1,34 @@
+package com.yo.day1.controllers;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.yo.day1.common.ApiResponse;
+import com.yo.day1.domain.entity.Teacher;
+import com.yo.day1.service.TeacherService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping(value = "/api/teachers")
+@RequiredArgsConstructor
+public class TeacherController {
+    private final TeacherService teacherService;
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<Teacher>>> getTeachers() {
+        return ResponseEntity.ok(ApiResponse.success(teacherService.findAll()));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<ApiResponse<Teacher>> getTeacherById(@PathVariable("id") Long id) {
+        return teacherService.findById(id).map(value -> 
+            ResponseEntity.ok(ApiResponse.success(value)))
+            .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+}
