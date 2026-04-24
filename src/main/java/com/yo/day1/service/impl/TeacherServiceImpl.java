@@ -41,4 +41,12 @@ public class TeacherServiceImpl implements TeacherService {
                 })
                 .orElseThrow(() -> new RuntimeException("Teacher not found"));
     }
+
+    public Optional<Teacher> deleteById(Long id) {
+        // TODO: Soft delete for now
+        return teacherRepository.findById(id).map(teacher -> {
+            teacher.setIsActive((byte) 0);
+            return teacherRepository.save(teacher);
+        });
+    }
 }

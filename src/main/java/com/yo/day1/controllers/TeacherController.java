@@ -3,6 +3,7 @@ package com.yo.day1.controllers;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,5 +47,12 @@ public class TeacherController {
         @RequestBody Teacher updatedTeacher
     ) {
         return ResponseEntity.ok(ApiResponse.success(teacherService.updateById(id, updatedTeacher)));
+    }
+    
+    @DeleteMapping("{id}")
+    public ResponseEntity<ApiResponse<Teacher>> delete(@PathVariable Long id) {
+        return teacherService.deleteById(id).map(value -> 
+            ResponseEntity.ok(ApiResponse.success(value)))
+            .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
