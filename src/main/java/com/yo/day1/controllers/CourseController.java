@@ -41,4 +41,11 @@ public class CourseController {
     public ResponseEntity<ApiResponse<Course>> create(@RequestBody Course course) {
         return ResponseEntity.ok(ApiResponse.success(courseService.save(course)));
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ApiResponse<Course>> update(
+            @PathVariable("id") Long id, 
+            @RequestBody Course updatedCourse) {
+        return ResponseEntity.ok(ApiResponse.success(courseService.updateById(id, updatedCourse)));
+    }
 }
