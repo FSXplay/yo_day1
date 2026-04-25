@@ -2,9 +2,12 @@ package com.yo.day1.controllers;
 
 import java.util.List;
 
+import org.springframework.data.repository.config.RepositoryNameSpaceHandler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,5 +33,10 @@ public class ParentController {
         return parentService.findById(id).map(value ->
             ResponseEntity.ok(ApiResponse.success(value)))
             .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<Parent>> create(@RequestBody Parent parent) {
+        return ResponseEntity.ok(ApiResponse.success(parentService.save(parent)));
     }
 }

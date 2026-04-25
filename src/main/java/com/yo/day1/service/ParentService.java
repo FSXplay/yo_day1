@@ -9,4 +9,6 @@ public interface ParentService {
     List<Parent> findAll();
 
     Optional<Parent> findById(Long id);
+
+    Parent save(Parent parent);
 }

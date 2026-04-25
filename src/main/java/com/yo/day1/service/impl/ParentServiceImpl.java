@@ -23,4 +23,8 @@ public class ParentServiceImpl implements ParentService {
     public Optional<Parent> findById(Long id) {
         return parentRepository.findById(id);
     }
+
+    public Parent save(Parent parent) {
+        return parentRepository.save(parent);
+    }
 }
