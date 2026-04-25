@@ -4,6 +4,8 @@ import com.yo.day1.domain.entity.Course;
 import com.yo.day1.repository.CourseRepository;
 import com.yo.day1.service.CourseService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,10 +42,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     public Optional<Course> deleteById(Long id) {
-        // TODO: Need to discuss on whether to soft or hard delete
-        return courseRepository.findById(id).map(course -> {
-            course.setIsActive((byte) 0);
-            return courseRepository.save(course);
-        });
+        if (courseRepository.countClassesByCourseId(id) > 0) {
+            throw new DataIntegrityViolationException("Cannot delete course with available classes");
+        }
+        Optional<Course> courseToDelete = courseRepository.findById(id);
+        courseRepository.delete(courseToDelete.get());
+        return courseToDelete;
     }
 }
