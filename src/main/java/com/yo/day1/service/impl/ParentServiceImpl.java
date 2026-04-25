@@ -27,4 +27,15 @@ public class ParentServiceImpl implements ParentService {
     public Parent save(Parent parent) {
         return parentRepository.save(parent);
     }
+
+    public Optional<Parent> update(Long id, Parent updatedParent) {
+        return parentRepository.findById(id)
+            .map(existingParent -> {
+                existingParent.setFullName(updatedParent.getFullName());
+                existingParent.setPhone(updatedParent.getPhone());
+                existingParent.setEmail(updatedParent.getEmail());
+                existingParent.setAddress(updatedParent.getAddress());
+                return parentRepository.save(existingParent);
+            });
+    }
 }

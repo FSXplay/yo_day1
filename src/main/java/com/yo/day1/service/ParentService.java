@@ -11,4 +11,6 @@ public interface ParentService {
     Optional<Parent> findById(Long id);
 
     Parent save(Parent parent);
+    
+    Optional<Parent> update(Long id, Parent updatedParent);
 }
