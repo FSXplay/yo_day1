@@ -45,7 +45,9 @@ public class CourseController {
     public ResponseEntity<ApiResponse<Course>> update(
             @PathVariable("id") Long id, 
             @RequestBody Course updatedCourse) {
-        return ResponseEntity.ok(ApiResponse.success(courseService.updateById(id, updatedCourse)));
+        return courseService.updateById(id, updatedCourse).map(value -> 
+            ResponseEntity.ok(ApiResponse.success(value)))
+            .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping({"{id}"})

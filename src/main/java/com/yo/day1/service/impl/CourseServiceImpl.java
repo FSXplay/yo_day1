@@ -26,7 +26,7 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.save(course);
     }
 
-    public Course updateById(Long id, Course updatedCourse) {
+    public Optional<Course> updateById(Long id, Course updatedCourse) {
         return courseRepository.findById(id)
                 .map(existingCourse -> {
                     existingCourse.setCourseCode(updatedCourse.getCourseCode());
@@ -36,8 +36,7 @@ public class CourseServiceImpl implements CourseService {
                     existingCourse.setTotalSessions(updatedCourse.getTotalSessions());
                     existingCourse.setIsActive(updatedCourse.getIsActive());
                     return courseRepository.save(existingCourse);
-                })
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                });
     }
 
     public Optional<Course> deleteById(Long id) {

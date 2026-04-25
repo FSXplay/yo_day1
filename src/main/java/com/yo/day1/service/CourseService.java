@@ -12,7 +12,7 @@ public interface CourseService {
 
     Course save(Course course);
 
-    Course updateById(Long id, Course updatedCourse);
+    Optional<Course> updateById(Long id, Course updatedCourse);
 
     Optional<Course> deleteById(Long id);
 }
