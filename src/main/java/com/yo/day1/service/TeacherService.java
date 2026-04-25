@@ -11,7 +11,7 @@ public interface TeacherService {
 
     Teacher save(Teacher teacher);
 
-    Teacher updateById(Long id, Teacher updatedTeacher);
+    Optional<Teacher> updateById(Long id, Teacher updatedTeacher);
 
     Optional<Teacher> deleteById(Long id);
 }

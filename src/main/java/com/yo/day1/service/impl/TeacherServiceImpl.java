@@ -28,7 +28,7 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherRepository.save(teacher);
     }
 
-    public Teacher updateById(Long id, Teacher updatedTeacher) {
+    public Optional<Teacher> updateById(Long id, Teacher updatedTeacher) {
         return teacherRepository.findById(id)
                 .map(existingTeacher -> {
                     existingTeacher.setTeacherCode(updatedTeacher.getTeacherCode());
@@ -37,9 +37,8 @@ public class TeacherServiceImpl implements TeacherService {
                     existingTeacher.setPhone(updatedTeacher.getPhone());
                     existingTeacher.setTeacherRole(updatedTeacher.getTeacherRole());
                     existingTeacher.setIsActive(updatedTeacher.getIsActive());
-                    return teacherRepository.save(existingTeacher);  
-                })
-                .orElseThrow(() -> new RuntimeException("Teacher not found"));
+                    return teacherRepository.save(existingTeacher);
+                });
     }
 
     public Optional<Teacher> deleteById(Long id) {

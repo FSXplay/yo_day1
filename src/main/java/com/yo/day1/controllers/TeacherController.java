@@ -46,7 +46,9 @@ public class TeacherController {
         @PathVariable("id") Long id,
         @RequestBody Teacher updatedTeacher
     ) {
-        return ResponseEntity.ok(ApiResponse.success(teacherService.updateById(id, updatedTeacher)));
+        return teacherService.updateById(id, updatedTeacher).map(value -> 
+            ResponseEntity.ok(ApiResponse.success(value)))
+            .orElseGet(() -> ResponseEntity.notFound().build());
     }
     
     @DeleteMapping("{id}")
