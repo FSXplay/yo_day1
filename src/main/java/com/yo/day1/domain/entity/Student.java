@@ -17,4 +17,5 @@ public class Student {
     private String fullname;
     private String email;
     private String phone;
+    private Long parentId;
 }
