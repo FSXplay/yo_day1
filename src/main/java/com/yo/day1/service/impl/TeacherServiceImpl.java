@@ -3,6 +3,7 @@ package com.yo.day1.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.yo.day1.domain.entity.Teacher;
@@ -42,10 +43,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     public Optional<Teacher> deleteById(Long id) {
-        // TODO: Soft delete for now
-        return teacherRepository.findById(id).map(teacher -> {
-            teacher.setIsActive((byte) 0);
-            return teacherRepository.save(teacher);
-        });
+        if (teacherRepository.existsLinkedEntities(id) == 1) {
+            throw new DataIntegrityViolationException("Cannot delete teacher with linked entities");
+        }
+        Optional<Teacher> teacherToDelete = teacherRepository.findById(id);
+        teacherRepository.delete(teacherToDelete.get());
+        return teacherToDelete;
     }
 }
