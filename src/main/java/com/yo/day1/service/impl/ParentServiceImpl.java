@@ -41,7 +41,7 @@ public class ParentServiceImpl implements ParentService {
     }
 
     public Optional<Parent> deleteById(Long id) {
-        if (parentRepository.existsLinkedEntities(id)) {
+        if (parentRepository.existsLinkedEntities(id) == 1) {
             throw new DataIntegrityViolationException("Cannot delete parent with linked entities");
         }   
         Optional<Parent> parentToDelete = parentRepository.findById(id);

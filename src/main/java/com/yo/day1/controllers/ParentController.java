@@ -52,7 +52,7 @@ public class ParentController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<ApiResponse<Parent>> delete(Long id) {
+    public ResponseEntity<ApiResponse<Parent>> delete(@PathVariable("id") Long id) {
         return parentService.deleteById(id).map(value -> 
             ResponseEntity.ok(ApiResponse.success(value)))
             .orElseGet(() -> ResponseEntity.notFound().build());
