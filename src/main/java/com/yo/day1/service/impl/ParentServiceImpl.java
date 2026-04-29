@@ -3,6 +3,7 @@ package com.yo.day1.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.yo.day1.domain.entity.Parent;
@@ -28,7 +29,7 @@ public class ParentServiceImpl implements ParentService {
         return parentRepository.save(parent);
     }
 
-    public Optional<Parent> update(Long id, Parent updatedParent) {
+    public Optional<Parent> updateById(Long id, Parent updatedParent) {
         return parentRepository.findById(id)
             .map(existingParent -> {
                 existingParent.setFullName(updatedParent.getFullName());
@@ -37,5 +38,14 @@ public class ParentServiceImpl implements ParentService {
                 existingParent.setAddress(updatedParent.getAddress());
                 return parentRepository.save(existingParent);
             });
+    }
+
+    public Optional<Parent> deleteById(Long id) {
+        if (parentRepository.existsLinkedEntities(id)) {
+            throw new DataIntegrityViolationException("Cannot delete parent with linked entities");
+        }   
+        Optional<Parent> parentToDelete = parentRepository.findById(id);
+        parentRepository.delete(parentToDelete.get());
+        return parentToDelete;
     }
 }

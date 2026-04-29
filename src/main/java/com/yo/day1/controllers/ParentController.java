@@ -3,6 +3,7 @@ package com.yo.day1.controllers;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +46,14 @@ public class ParentController {
         @PathVariable("id") Long id,
         @RequestBody Parent updatedParent
     ) {
-        return parentService.update(id, updatedParent).map(value -> 
+        return parentService.updateById(id, updatedParent).map(value -> 
+            ResponseEntity.ok(ApiResponse.success(value)))
+            .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<ApiResponse<Parent>> delete(Long id) {
+        return parentService.deleteById(id).map(value -> 
             ResponseEntity.ok(ApiResponse.success(value)))
             .orElseGet(() -> ResponseEntity.notFound().build());
     }

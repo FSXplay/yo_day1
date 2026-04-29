@@ -12,5 +12,7 @@ public interface ParentService {
 
     Parent save(Parent parent);
     
-    Optional<Parent> update(Long id, Parent updatedParent);
+    Optional<Parent> updateById(Long id, Parent updatedParent);
+
+    Optional<Parent> deleteById(Long id);
 }
