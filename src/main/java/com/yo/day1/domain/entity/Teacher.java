@@ -1,22 +1,19 @@
 package com.yo.day1.domain.entity;
 
+import com.yo.day1.domain.AuditableEntity;
+import com.yo.day1.domain.enums.TeacherRole;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
 @Table(name = "teachers")
 @Data
-public class Teacher {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Teacher extends AuditableEntity {
     
     @Column(columnDefinition = "varchar(20)")
     private String teacherCode;
@@ -34,10 +31,4 @@ public class Teacher {
     private TeacherRole teacherRole;
 
     private byte isActive;
-
-    public enum TeacherRole {
-        TEACHER,
-        ASSISTANT,
-        BOTH
-    }
 }
