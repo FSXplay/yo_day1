@@ -3,7 +3,6 @@ package com.yo.day1.controllers;
 import com.yo.day1.common.ApiResponse;
 import com.yo.day1.domain.entity.Course;
 import com.yo.day1.service.CourseService;
-// import jakarta.websocket.server.PathParam; // TODO: @PathParam vs @PathVariable?
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/courses")
+@RequestMapping(value = "/courses")
 @RequiredArgsConstructor
 public class CourseController {
     private final CourseService courseService;

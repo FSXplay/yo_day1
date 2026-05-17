@@ -19,7 +19,7 @@ import com.yo.day1.service.ParentService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(value = "/api/parents")
+@RequestMapping(value = "/parents")
 @RequiredArgsConstructor
 public class ParentController {
     private final ParentService parentService;

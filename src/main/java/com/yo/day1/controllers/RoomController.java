@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/room")
+@RequestMapping(value = "/rooms")
 public class RoomController {
     private final RoomService roomService;
 
@@ -28,7 +28,7 @@ public class RoomController {
         return ApiResponse.success(roomService.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ApiResponse<RoomResponse> findById(@PathVariable Long id) {
         return roomService.findById(id)
                 .map(ApiResponse::success)

@@ -19,7 +19,7 @@ import com.yo.day1.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(value = "/api/teachers")
+@RequestMapping(value = "/teachers")
 @RequiredArgsConstructor
 public class TeacherController {
     private final TeacherService teacherService;
