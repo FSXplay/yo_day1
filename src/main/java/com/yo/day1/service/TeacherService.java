@@ -1,17 +1,21 @@
 package com.yo.day1.service;
 
 import com.yo.day1.domain.entity.Teacher;
-import java.util.List;
-import java.util.Optional;
+import com.yo.day1.dto.teacher.TeacherResponse;
+import com.yo.day1.dto.teacher.TeacherUpsertRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface TeacherService {
-    List<Teacher> findAll();
+    Page<TeacherResponse> findAll(String search, Pageable pageable);
 
-    Optional<Teacher> findById(Long id);
+    TeacherResponse findById(Long id);
 
-    Teacher save(Teacher teacher);
+    TeacherResponse create(TeacherUpsertRequest request);
 
-    Optional<Teacher> updateById(Long id, Teacher updatedTeacher);
+    TeacherResponse update(Long id, TeacherUpsertRequest request);
 
-    Optional<Teacher> deleteById(Long id);
+    void delete(Long id);
+
+    Teacher getTeacher(Long id);
 }
