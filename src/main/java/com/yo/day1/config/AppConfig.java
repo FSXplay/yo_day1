@@ -11,12 +11,11 @@ public class AppConfig {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.LOOSE)
-                .setSkipNullEnabled(true)
-                .setFieldMatchingEnabled(true)
-                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
-                .setMethodAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PUBLIC);
+        modelMapper
+            .getConfiguration()
+            .setFieldMatchingEnabled(true)
+            .setMatchingStrategy(MatchingStrategies.STRICT)
+            .setAmbiguityIgnored(false);
         return modelMapper;
     }
 }
