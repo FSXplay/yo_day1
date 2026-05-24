@@ -4,5 +4,5 @@ import com.yo.day1.domain.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
-
+    java.util.List<Student> findByParentId(Long parentId);
 }

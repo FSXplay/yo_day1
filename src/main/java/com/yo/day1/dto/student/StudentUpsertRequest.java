@@ -2,44 +2,23 @@ package com.yo.day1.dto.student;
 
 import com.yo.day1.domain.enums.Gender;
 import com.yo.day1.domain.enums.StudentStatus;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class StudentUpsertRequest {
-
-    @Size(min = 2)
-    private String studentCode;
-
-    @Size(min = 2)
-    private String fullName;
-
-    private LocalDate dateOfBirth;
-
-    @NotNull
-    private Gender gender = Gender.OTHER;
-
-    @NotBlank
-    private String gradeLevel;
-
-    private String schoolName;
-
-    @Pattern(regexp = "^(84|0[35789])+([0-9]{8})$")
-    private String phone;
-
-    private Long parentId;
-
-    private StudentStatus status = StudentStatus.ACTIVE;
-
-    @Min(value = 0)
-    @Max(value = 10)
-    private BigDecimal latestScore = BigDecimal.ZERO;
-
-    private String note;
-}
+public record StudentUpsertRequest(
+    @NotBlank @Size(max = 20) String studentCode,
+    @NotBlank @Size(max = 100) String fullName,
+    LocalDate dateOfBirth,
+    @NotNull Gender gender,
+    @Size(max = 30) String gradeLevel,
+    @Size(max = 100) String schoolName,
+    @Size(max = 20) String phone,
+    Long parentId,
+    @NotNull StudentStatus status,
+    @NotNull @DecimalMin("0.0") BigDecimal latestScore,
+    @Size(max = 255) String note
+) {}
